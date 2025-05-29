@@ -1,8 +1,6 @@
-from config import create_app
-from app.controllers.atividade_controller import atividade_bp
 from flask import Flask
 from app import db
-from app.controller.atividade_controller import routes
+from app.controllers.atividade_controller import routes
 from config import Config
 
 app = Flask(__name__)
