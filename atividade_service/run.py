@@ -1,8 +1,19 @@
 from config import create_app
 from app.controllers.atividade_controller import atividade_bp
+from flask import Flask
+from app import db
+from app.controller.atividade_controller import routes
+from config import Config
 
-app = create_app()
-app.register_blueprint(atividade_bp, url_prefix='/atividades')
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///atividades.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+app.register_blueprint(routes, url_prefix='/atividades')
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002, debug=True)
+    app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)

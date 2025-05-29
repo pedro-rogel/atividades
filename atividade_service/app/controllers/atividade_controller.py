@@ -1,8 +1,12 @@
-from flask import Blueprint, jsonify
-from app.model import atividade_model
+from flask import Blueprint, jsonify, requests
+from app.model.atividade_model import Atividade
 from app.clients.pessoa_service_client import PessoaServiceClient
+from app import db
+import requests
 
 atividade_bp = Blueprint('atividade_bp', __name__)
+
+routes = Blueprint("routes", __name__)
 
 @atividade_bp.route('/', methods=['GET'])
 def listar_atividades():
